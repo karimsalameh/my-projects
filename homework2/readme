@@ -1,0 +1,31 @@
+Vigenère Cipher & Multi-Round Permutation Documentation
+1. Compilation and Execution
+This project is implemented in C++. 
+The terminal will prompt you to sequentially provide the mode (E for Encrypt, D for Decrypt), the target plaintext or ciphertext, the Vigenère secret key, the row permutation key, and the column permutation key. 
+
+
+2. Multi-Round Permutation Logic (Rows/Columns)
+The multi-round transposition enhances the standard Vigenère substitution by rearranging the ciphertext elements across structured matrices. The logic is structured and reversed as follows: 
+•	Matrix Structure and Padding: The permutations operate on blocks of characters. The block size is defined by Row Key Length × Column Key Length. During encryption, if the substituted text length is not a perfect multiple of the block size, it is padded with the character 'X'.
+•	Key Sorting: Both the row and column permutation keys are analyzed to generate numerical permutation arrays based on the alphabetical order of their characters.
+•	Encryption Routing: The intermediate text (resulting from the Vigenère substitution) is populated into a 2D matrix. The logic performs a column-based permutation first (shifting columns to match the sorted column key order), followed immediately by a row-based permutation (shifting rows to match the sorted row key order). 
+•	Reversal (Decryption): The encryption process features symmetric reversibility. During decryption, mathematical inverse arrays of the key orders are calculated. The cipher block is loaded into the matrix, and the row-based inverse permutation is applied first, followed by the column-based inverse permutation, restoring the original sequence before passing it back to the Vigenère decryption pipeline. 
+
+
+3. Example Test Cases
+Below is an example demonstrating an end-to-end encryption and successful decryption cycle. 
+ Encryption:
+•	Mode: E
+•	Target string: HELLOWORLD
+•	Vigenere Key: SECURE
+•	Row Key: HACK
+•	Column Key: CAT
+•	Final Ciphertext: FFAVGNIZNOXB
+Decryption:
+•	Mode: D
+•	Target string: FFAVGNIZNOXB
+•	Vigenere Key: SECURE
+•	Row Key: HACK
+•	Column Key: CAT
+•	Final Plaintext: HELLOWORLDXX
+
